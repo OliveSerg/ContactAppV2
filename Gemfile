@@ -10,6 +10,7 @@ gem 'sinatra-activerecord'
 
 gem 'puma'
 gem 'tux'
+gem 'faker'
 
 # These gems are only installed when run as `bundle install --without production`
 group :development, :test do
@@ -20,6 +21,6 @@ end
 
 # bundle install --without test --without development
 group :production do
-  # use postgres in production, or move outside a group if your app uses postgres for development and production 
+  # use postgres in production, or move outside a group if your app uses postgres for development and production
   gem 'pg'
 end
