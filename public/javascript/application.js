@@ -1,6 +1,17 @@
 $(document).ready(function() {
 
-  function addText(contact){
+  function formattedDate(date){
+    date = date.split("-")
+    return new Date(date[2],date[1],date[0])
+  }
+
+  function contactCard(contact){
+    return $("<div>").addClass('contact').append([
+      $('<h2>').addClass('fullname').text(contact.firstname + " " + contact.lastname),
+      $('<p>').text(contact.phonenumber),
+      $('<p>').text(contact.email),
+      $('<p>').text(contact.birthday),
+      $('<button>').attr('type', 'button').addClass('update').text("Edit"),$('<button>').attr('type', 'button').addClass('delete').text("Delete")])
   }
 
 
@@ -10,11 +21,7 @@ $(document).ready(function() {
     success: function(contacts){
       $('body').append('<div id="contactlist"></div>');
       contacts.forEach(function(contact){
-        $contactDiv = $("<div>").addClass('contact')
-        $('<h2>').addClass('fullname').text(contact.firstname + " " + contact.lastname).appendTo($contactDiv)
-        $('<p>').text(contact.phonenumber).appendTo($contactDiv)
-        $('<p>').text(contact.email).appendTo($contactDiv)
-        $('<p>').text(contact.birthday).appendTo($contactDiv)
+        $contactDiv = contactCard(contact)
         $contactDiv.appendTo($('#contactlist'))
       })
     }
@@ -28,14 +35,18 @@ $(document).ready(function() {
       method: 'POST',
       data: data,
       success: function(contact){
-        console.log(contact)
+        $contactDiv = contactCard(contact)
+        $('#contactlist').prepend($contactDiv)
       }
     })
+  })
 
-    // $.post('/add_contact', $('#add_contact').serialize())
-    //   .done(function(){
-    //
-    // })
+  $('document').on('click', '.update', function(){
+
+  })
+
+  $('document').on('click', '.delete', function(){
+    
   })
 
   // $('#search').click(function(){
