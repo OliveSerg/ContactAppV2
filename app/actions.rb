@@ -24,3 +24,9 @@ post '/add_contact' do
     redirect_to '/'
   end
 end
+
+delete '/delete_contact' do
+  content_type :json
+  binding.pry
+  contact = Contact.where(params[:contact]).to_json
+end
