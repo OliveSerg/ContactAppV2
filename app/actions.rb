@@ -25,6 +25,10 @@ post '/add_contact' do
   end
 end
 
+put '/update_contact' do
+  contact = Contact.update_attribut(params[:contact])
+end
+
 delete '/delete_contact' do
   content_type :json
   binding.pry

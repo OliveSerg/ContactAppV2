@@ -3,9 +3,10 @@ var app = {
   contacts: [],
 
   render: function(contacts){
+    $('#contactlist').html("")
     contacts.forEach(function(contact){
-      $contactDiv = contactCard(contact)
-      $contactDiv.appendTo($('#contactlist'))
+      $contactDiv = app.contactCard(contact);
+      $contactDiv.appendTo($('#contactlist'));
     })
   },
 
@@ -25,9 +26,8 @@ var app = {
       url: '/add_contact',
       method: 'POST',
       data: data,
-      success: function(contact){
-        $contactDiv = contactCard(contact)
-        $('#contactlist').prepend($contactDiv)
+      success: function(data){
+        render
       }
     })
   },
@@ -37,13 +37,30 @@ var app = {
   },
 
   updateContact: function(contact){
+    $.ajax({
+      url: '/update_contact',
+      method: 'PUT',
+      data: data,
+      success: function(data){
 
+      }
+    })
   },
 
   init: function(){
     $(document).on('submit', '#addContactForm', app.addContact);
     $(document).on('click', '.update', app.updateContact);
     $(document).on('click', '.delete', app.removeContact);
+    $.ajax({
+      url: '/contacts',
+      method: 'GET',
+      success: function(data){
+        data.forEach(function(contact){
+          app.contacts.push(contact)
+        })
+        app.render(data)
+      }
+    })
   }
 }
 
@@ -51,52 +68,52 @@ var app = {
 $(document).ready(function() {
   app.init()
 
-  $.ajax({
-    url: '/contacts',
-    method: 'GET',
-    success: storeObject(data)
-  })
-
-  $('#addContactForm').submit(function(e){
-    e.preventDefault()
-    data = $('#addContactForm').serialize()
-    $.ajax({
-      url: '/add_contact',
-      method: 'POST',
-      data: data,
-      success: function(contact){
-        $contactDiv = contactCard(contact)
-        $('#contactlist').prepend($contactDiv)
-      }
-    })
-  })
-
-  $(document).on('click', '.update', function(){
-    parentNode = $(this).parent()
-    parentNode.children('.fullname')
-    parentNode.children('.email')
-    parentNode.children('.pnumber')
-  })
-
-  $(document).on('click', '.delete', function(e){
-    parentNode = $(this).parent()
-    name = parentNode.children('.fullname').text().split(" ")
-    data = {contact: {
-      firstname: name[0],
-      lastname: name[1],
-      email: parentNode.children('.email').text(),
-      phonenumber: parentNode.children('.pnumber').text(),
-      birthday: parentNode.children('.birthday').text()
-    }}
-    $.ajax({
-      url: '/delete_contact',
-      method: 'DELETE',
-      data: data,
-      success: function(contact){
-        console.log(contact)
-      }
-    })
-  })
+  // $.ajax({
+  //   url: '/contacts',
+  //   method: 'GET',
+  //   success: storeObject(data)
+  // })
+  //
+  // $('#addContactForm').submit(function(e){
+  //   e.preventDefault()
+  //   data = $('#addContactForm').serialize()
+  //   $.ajax({
+  //     url: '/add_contact',
+  //     method: 'POST',
+  //     data: data,
+  //     success: function(contact){
+  //       $contactDiv = contactCard(contact)
+  //       $('#contactlist').prepend($contactDiv)
+  //     }
+  //   })
+  // })
+  //
+  // $(document).on('click', '.update', function(){
+  //   parentNode = $(this).parent()
+  //   parentNode.children('.fullname')
+  //   parentNode.children('.email')
+  //   parentNode.children('.pnumber')
+  // })
+  //
+  // $(document).on('click', '.delete', function(e){
+  //   parentNode = $(this).parent()
+  //   name = parentNode.children('.fullname').text().split(" ")
+  //   data = {contact: {
+  //     firstname: name[0],
+  //     lastname: name[1],
+  //     email: parentNode.children('.email').text(),
+  //     phonenumber: parentNode.children('.pnumber').text(),
+  //     birthday: parentNode.children('.birthday').text()
+  //   }}
+  //   $.ajax({
+  //     url: '/delete_contact',
+  //     method: 'DELETE',
+  //     data: data,
+  //     success: function(contact){
+  //       console.log(contact)
+  //     }
+  //   })
+  // })
 
 
   // function formattedDate(date){
