@@ -18,8 +18,18 @@ var app = {
       $('<button>').attr('type', 'button').addClass('update').text("Edit"),$('<button>').attr('type', 'button').addClass('delete').text("Delete")])
   },
 
-  addContact: function(contact){
-
+  addContact: function(e){
+    e.preventDefault();
+    var data = $('#addContactForm').serialize()
+    $.ajax({
+      url: '/add_contact',
+      method: 'POST',
+      data: data,
+      success: function(contact){
+        $contactDiv = contactCard(contact)
+        $('#contactlist').prepend($contactDiv)
+      }
+    })
   },
 
   removeContact: function(contact){
@@ -31,7 +41,9 @@ var app = {
   },
 
   init: function(){
-
+    $(document).on('submit', '#addContactForm', app.addContact);
+    $(document).on('click', '.update', app.updateContact);
+    $(document).on('click', '.delete', app.removeContact);
   }
 }
 
