@@ -25,8 +25,16 @@ post '/add_contact' do
   end
 end
 
-delete '/delete_contact' do
+put '/update_contact' do
   content_type :json
-  binding.pry
-  contact = Contact.where(params[:contact]).to_json
+  contact = Contact.find(params[:id])
+  contact.update_attributes(params[:contact])
+  contact.reload
+  contact.to_json
+end
+
+delete '/delete_contact/:id' do
+  content_type :json
+  contact = Contact.find(params[:id])
+  contact.destroy.to_json
 end
