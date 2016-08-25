@@ -28,7 +28,9 @@ end
 put '/update_contact' do
   content_type :json
   contact = Contact.find(params[:id])
-  contact.update_attributes(params[:contact]).to_json
+  contact.update_attributes(params[:contact])
+  contact.reload
+  contact.to_json
 end
 
 delete '/delete_contact/:id' do

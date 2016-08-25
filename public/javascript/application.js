@@ -23,7 +23,7 @@ var app = {
         .text(contact.email),
       $('<p>')
         .addClass('birthday')
-        .text(contact.birthday),
+        .text(moment(contact.birthday).format("MMM Do YYYY")),
       $('<button>')
         .attr('type', 'button')
         .addClass('edit')
@@ -97,14 +97,15 @@ var app = {
       method: 'DELETE',
       success: function(data) {
         _.remove(app.contacts, function(contact){
-          contact.id === data.id
+          return contact.id === data.id
         })
         app.render()
       }
     })
   },
 
-  updateContact: function(){
+  updateContact: function(e){
+    e.preventDefault();
     var data = $('#editForm').serialize()
     $.ajax({
       url: '/update_contact',
@@ -112,7 +113,7 @@ var app = {
       data: data,
       success: function(data){
         _.remove(app.contacts, function(contact){
-          contact.id === data.id
+          return contact.id === data.id
         })
         app.contacts.push(data)
         app.render()
