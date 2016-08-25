@@ -142,4 +142,5 @@ var app = {
 
 $(document).ready(function() {
   app.init()
+  $('#datetimepicker4').datetimepicker({viewMode: 'years'});
 });
