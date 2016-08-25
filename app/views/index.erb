@@ -1,12 +1,27 @@
-<h1>Home Page</h1>
-<form id="addContactForm" action="index.html" method="post">
-  <input type="text" name="contact[firstname]" placeholder="Firstname">
-  <input type="text" name="contact[lastname]" placeholder="Lastname">
-  <input type="text" name="contact[email]" placeholder="Email">
-  <input type="text" name="contact[phonenumber]" placeholder="Number">
-  <input type="date" name="contact[birthday]" placeholder="DOB">
-  <button type="submit" name="submit">Submit</button>
-</form>
-<div id="contactlist">
+<div class="container">
+  <h1>Home Page</h1>
+  <form id="addContactForm" action="index.html" method="post">
+    <div class="form-group">
+      <label for="create-firstname">Firstname</label>
+      <input id="create-firstname" class="form-control" type="text" name="contact[firstname]" placeholder="Firstname">
+    </div>
+    <div class="form-group">
 
+    </div>
+    <div class="form-group">
+
+    </div>
+    <div class="form-group">
+
+    </div>
+    <div class="form-group">
+
+    </div>
+    <input type="text" name="contact[lastname]" placeholder="Lastname">
+    <input type="text" name="contact[email]" placeholder="Email">
+    <input type="text" name="contact[phonenumber]" placeholder="Number">
+    <input type="date" name="contact[birthday]" placeholder="DOB">
+    <button class="btn btn-primary" type="submit" name="submit">Submit</button>
+  </form>
+  <div id="contactlist"></div>
 </div>
