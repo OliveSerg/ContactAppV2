@@ -1,7 +1,7 @@
 .navbar {
   margin: 0;
   padding: .8em .67em;
-  
+
   background-color: #371080;
   color: white;
   border: none;
@@ -36,6 +36,7 @@
 }
 
 .contact {
+  position: relative;
   width: 60%;
   margin: 20px 0;
   padding: 10px;
@@ -45,4 +46,16 @@
 
 .contact h2 {
   margin-top: 0;
+}
+
+.edit {
+  position: absolute;
+  top: 10%;
+  right: 40px;
+}
+
+.delete {
+  position: absolute;
+  top: 10%;
+  right: 10px;
 }

@@ -17,7 +17,7 @@ var app = {
         .text(contact.firstname + " " + contact.lastname),
       $('<p>')
         .addClass('pnumber')
-        .text("Phone Number: " + contact.phonenumber.replace),
+        .text("Phone Number: " + contact.phonenumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")),
       $('<p>')
         .addClass('email')
         .text("Email: " + contact.email),
@@ -26,12 +26,10 @@ var app = {
         .text("DOB: " + moment(contact.birthday).format("MMM Do YYYY")),
       $('<button>')
         .attr('type', 'button')
-        .addClass('edit')
-        .text("Edit"),
+        .addClass('edit glyphicon glyphicon-pencil'),
       $('<button>')
         .attr('type', 'button')
-        .addClass('delete')
-        .text("Delete"),
+        .addClass('delete glyphicon glyphicon-remove'),
       $('<input>')
         .addClass('id')
         .attr('name', 'id')
