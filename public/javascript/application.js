@@ -17,13 +17,13 @@ var app = {
         .text(contact.firstname + " " + contact.lastname),
       $('<p>')
         .addClass('pnumber')
-        .text(contact.phonenumber),
+        .text("Phone Number: " + contact.phonenumber.replace),
       $('<p>')
         .addClass('email')
-        .text(contact.email),
+        .text("Email: " + contact.email),
       $('<p>')
         .addClass('birthday')
-        .text(moment(contact.birthday).format("MMM Do YYYY")),
+        .text("DOB: " + moment(contact.birthday).format("MMM Do YYYY")),
       $('<button>')
         .attr('type', 'button')
         .addClass('edit')
@@ -142,5 +142,4 @@ var app = {
 
 $(document).ready(function() {
   app.init()
-  $('#datetimepicker4').datetimepicker({viewMode: 'years'});
 });
