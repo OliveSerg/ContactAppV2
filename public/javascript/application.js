@@ -2,9 +2,10 @@ var app = {
 
   contacts: [],
 
-  render: function(){
+  render: function(sort = "created_at"){
     $('#contactlist').html("")
-    app.contacts.forEach(function(contact){
+    var contacts = _.sortBy(app.contacts, sort)
+    contacts.forEach(function(contact){
       var $contactDiv = app.contactCard(contact);
       $contactDiv.appendTo($('#contactlist'));
     })
@@ -42,7 +43,7 @@ var app = {
     parentNode.children().hide()
     var id = parentNode.children('.id').val()
     var contact = _.find(app.contacts, {id: parseInt(id)})
-    var form = $('<form>').attr('id','editForm')
+    var form = $('<form>').addClass('edit-form').attr('id','editForm')
     form.append(parentNode.children('.id'))
     parentNode.append(form)
     form.append([
@@ -69,8 +70,17 @@ var app = {
       $('<button>')
         .addClass('update')
         .attr('type', 'data')
-        .text('Update')
+        .text('Update'),
+      $('<button>')
+        .addClass('undo')
+        .text('Undo')
     ])
+  },
+
+  undoChanges: function(e){
+    e.preventDefault()
+    $(this).parent().remove()
+    $('.contact').children().show()
   },
 
   addContact: function(e){
@@ -122,6 +132,7 @@ var app = {
   init: function(){
     $(document).on('submit', '#addContactForm', app.addContact);
     $(document).on('click', '.edit', app.createForm);
+    $(document).on('click', '.undo', app.undoChanges)
     $(document).on('click', '.update', app.updateContact);
     $(document).on('click', '.delete', app.removeContact);
     $.ajax({
@@ -140,4 +151,10 @@ var app = {
 
 $(document).ready(function() {
   app.init()
+  $('#show-form').on('click', function(){
+    $('.form').toggleClass('translate')
+  })
+  $('#order-by').on('click', 'li',function(){
+    app.render($(this).attr('name'))
+  })
 });
